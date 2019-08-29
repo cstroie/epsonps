@@ -12,6 +12,15 @@ BINDIR = /usr/local/bin
 epsonps: epsonps.c
 	cc -DANSI epsonps.c -o epsonps
 
+man: epsonps.1
+	nroff -man epsonps.1 -Tlatin1 | col -bx > epsonps.txt
+
+pdf: epsonps.1
+	groff -fC -man epsonps.1 -Tpdf > epsonps.pdf
+
+ps: epsonps.1
+	groff -fC -man epsonps.1 -Tps > epsonps.ps
+
 install: epsonps epsonps.pro epsonps.1
 	install -c -m 755 epsonps     $(BINDIR)/epsonps
 	install -c -m 644 epsonps.pro $(BINDIR)/epsonps.pro
